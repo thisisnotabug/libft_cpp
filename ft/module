@@ -1,0 +1,2 @@
+module ft::ft:
+	public include public/
