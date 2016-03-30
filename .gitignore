@@ -1,0 +1,15 @@
+
+_objs
+*.a
+
+*.o
+*.cmo
+*.cmi
+*.exe
+*.cmx
+.*.sw[op]
+\#*\#
+\.\#*
+*\~
+.#*
+.DS_Store
