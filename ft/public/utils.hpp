@@ -92,12 +92,17 @@ std::string			f(char const *format, ARGS ...args)
 	return (out.str());
 }
 
+inline std::string		f(void)
+{
+	return "";
+}
+
 template<typename ... ARGS>
 void				f(std::ostream &out, char const *format, ARGS ...args)
 {
 	f_loop(out, f_print(out, format), std::forward<ARGS>(args)...);
 }
-
+  
 template <typename T>
 std::ostream		&operator<<(std::ostream &o, Vec2<T> const &rhs)
 {

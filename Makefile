@@ -29,11 +29,13 @@ else
 endif
 export DEBUG_MODE
 
-UNAME                   := $(shell uname | cut -c1-6)
+UNAME			:= $(shell uname | cut -c1-6)
 ifeq ($(UNAME),CYGWIN)
-        CC_CPP          = x86_64-w64-mingw32-g++
+  CC_CPP		= i686-w64-mingw32-g++
+  CC_AR			= i686-w64-mingw32-ar
 else
-        CC_CPP          = clang++
+  CC_CPP		= clang++
+  CC_AR			= ar
 endif
 
 
@@ -62,7 +64,7 @@ init: $(LIBS_RULES) $(OBJ_DIR_TREE) $(PUBLIC_LINKS)
 
 # Linking
 $(NAME): $(OBJ_DIR_TREE) $(PUBLIC_LINKS) $(LINK_DEPENDS) $(O_FILES)
-	ar rcs $@ $(O_FILES) && $(PRINT_LINK)
+	$(CC_AR) rcs $@ $(O_FILES) && $(PRINT_LINK)
 
 # Compiling
 $(O_DIR)/%.o: %.c

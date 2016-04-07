@@ -78,11 +78,16 @@ void		padformat_single(
 	return ;
 }
 
-# define FTPADARGS(...) __LINE__, __FILE__, __FUNCTION__, ##__VA_ARGS__
-
-# define FTPADB(...) ft::padformat_begin(FTPADARGS(__VA_ARGS__))
 # define FTPADE() ft::padformat_end()
-# define FTPAD(...) ft::padformat_single(FTPADARGS(__VA_ARGS__))
+
+#  ifdef __clang__
+# define FTPADB(...) ft::padformat_begin(__LINE__, __FILE__, __FUNCTION__, ##__VA_ARGS__)
+# define FTPAD(...) ft::padformat_single(__LINE__, __FILE__, __FUNCTION__, ##__VA_ARGS__)
+#  else
+// Small fix
+# define FTPADB(...) ft::padformat_begin(__LINE__, __FILE__, __FUNCTION__, "%", ft::f(__VA_ARGS__))
+# define FTPAD(...) ft::padformat_single(__LINE__, __FILE__, __FUNCTION__, "%", ft::f(__VA_ARGS__))
+#  endif
 
 };
 
