@@ -15,6 +15,8 @@ INCLUDE_FLAGS	=
 C_FLAGS			= $(INCLUDE_FLAGS) $(BASE_FLAGS)
 CPP_FLAGS		= $(INCLUDE_FLAGS) $(BASE_FLAGS) -std=c++14
 
+
+
 LINK_FLAGS		= $(BASE_FLAGS)
 
 DEBUG_MODE		?= 0
@@ -26,6 +28,14 @@ else
 	BASE_FLAGS	+= -O2
 endif
 export DEBUG_MODE
+
+UNAME                   := $(shell uname | cut -c1-6)
+ifeq ($(UNAME),CYGWIN)
+        CC_CPP          = x86_64-w64-mingw32-g++
+else
+        CC_CPP          = clang++
+endif
+
 
 # Objects directory
 O_DIR			:= _objs
@@ -58,7 +68,7 @@ $(NAME): $(OBJ_DIR_TREE) $(PUBLIC_LINKS) $(LINK_DEPENDS) $(O_FILES)
 $(O_DIR)/%.o: %.c
 	clang $(C_FLAGS) -c $< -o $@ && $(PRINT_OK)
 $(O_DIR)/%.o: %.cpp
-	clang++ $(CPP_FLAGS) -c $< -o $@ && $(PRINT_OK)
+	$(CC_CPP) $(CPP_FLAGS) -c $< -o $@ && $(PRINT_OK)
 
 # Init submodules
 $(SUBMODULE_RULES):
