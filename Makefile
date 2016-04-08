@@ -50,7 +50,7 @@ DEPEND			:= depend.mk
 
 # tmp
 SUBMODULE_RULES	:= $(addsuffix /.git,$(SUBMODULES))
-PRINT_OK	= printf '\033[32m$<\033[0m\n'
+PRINT_OK	= printf '  \033[32m$<\033[0m\n'
 PRINT_LINK	= printf '\033[32m$@\033[0m\n'
 
 # Default rule (need to be before any include)
